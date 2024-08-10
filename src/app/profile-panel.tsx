@@ -31,7 +31,7 @@ export default function ProfilePanel() {
 
             const oldUser: any = await getUser(profileData.data.username)
 
-            const oldAvatar = oldUser.avatar_url
+            const oldAvatar = oldUser?.avatar_url
 
             upsertUser({ username: profileData.data.username, avatar_url: session?.user.image as string })
 
