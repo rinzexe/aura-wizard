@@ -87,7 +87,7 @@ function LoginPanel() {
     return (
         <div>
             Not signed in <br />
-            <Button onClick={() => signIn('discord')}>Sign out</Button>
+            <Button onClick={() => signIn('discord')}>Sign in</Button>
         </div>
     )
 }
