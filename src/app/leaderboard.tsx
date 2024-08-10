@@ -17,13 +17,10 @@ export default function LeaderBoard() {
             const res: any = await getLeaderBoardData()
 
             setUsers(res)
-
-            const channel = supabase.channel('leaderboard updates').on('postgres_changes', { event: '*', schema: 'public', table: 'users' }, (payload: any) => { console.log(payload); supabase.removeChannel(channel); getData() }).subscribe()
         }
 
         getData()
 
-        return () => { channel && supabase && supabase.removeChannel(channel) }
     }, [])
 
     return (

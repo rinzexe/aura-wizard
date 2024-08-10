@@ -48,15 +48,12 @@ export default function ProfilePanel() {
             data.discordProfileData = profileData.data;
 
             setUserData(data)
-
-            const channel = supabase.channel('profile updates').on('postgres_changes', { event: '*', schema: 'public', table: 'users' }, (payload: any) => { console.log(payload); supabase.removeChannel(channel); getData() }).subscribe()
         }
 
         if (session) {
             getData()
         }
 
-        return () => { channel && supabase && supabase.removeChannel(channel) }
 
     }, [session])
 
