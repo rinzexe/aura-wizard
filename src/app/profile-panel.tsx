@@ -29,16 +29,20 @@ export default function ProfilePanel() {
                 validateStatus: () => true
             });
 
-            const supabase = await getSupabase()
+            const oldUser: any = await getUser(profileData.data.username)
 
-            const oldAvatar = session?.user.image
+            const oldAvatar = oldUser.avatar_url
 
             upsertUser({ username: profileData.data.username, avatar_url: session?.user.image as string })
 
             const user: any = await getUser(profileData.data.username)
 
+            console.log(oldAvatar)
+            console.log(session?.user.image)
+
 
             if (oldAvatar != session?.user.image) {
+                console.log("calculating aura")
                 calculateAura(profileData.data.username, session?.user.image as string)
                 setRerender(!rerender)
             }
