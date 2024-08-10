@@ -27,6 +27,7 @@ const handler = NextAuth({
       authorization: "https://discord.com/api/oauth2/authorize?scope=identify+connections+guilds",
     }),
   ],
+  secret: process.env.SECRET,
 })
 
 export { handler as GET, handler as POST }
