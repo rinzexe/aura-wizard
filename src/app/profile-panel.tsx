@@ -102,7 +102,7 @@ function LoggedInPanel({ userData, session }: any) {
                                     {"Image rating"}
                                 </h3>
                                 <div className="inline-block gap-4">
-                                    {userData.userData.image_values ? userData.userData.image_values.map((value: any, id: number) => (
+                                    {userData.userData.image_values ? userData.userData.image_values?.map((value: any, id: number) => (
                                         <p key={id} className="text-sm">
                                             {"• " + value.label + " " + (value.value > 0 ? "+" + value.value : value.value)}
                                         </p>
@@ -114,7 +114,7 @@ function LoggedInPanel({ userData, session }: any) {
                                     {"Name rating"}
                                 </h3>
                                 <div className="inline-block gap-4">
-                                    {userData.userData.name_values ? userData.userData.name_values.map((value: any, id: number) => (
+                                    {userData.userData.name_values ? userData.userData.name_values?.map((value: any, id: number) => (
                                         <p key={id} className="text-sm">
                                             {"• " + value.label + " " + (value.value > 0 ? "+" + value.value : value.value)}
                                         </p>
@@ -135,7 +135,7 @@ function LoggedInPanel({ userData, session }: any) {
 function LoginPanel() {
     return (
         <div className="relative h-full w-full">
-            <div className="absolute bottom-0 left-0 flex rounded-xl bg-black/75 justify-center flex-col gap-4 backdrop-blur-sm items-center w-full h-full z-20">
+            <div className="absolute bottom-0 left-0 flex rounded-xl bg-black/50 justify-center flex-col gap-4 backdrop-blur-sm items-center w-full h-full z-20">
                 <h1>
                     SIGN IN TO SEE YOUR PROFILE
                 </h1>
