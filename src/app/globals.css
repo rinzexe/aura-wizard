@@ -18,16 +18,27 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer components {
+  h1 {
+    @apply font-calsans text-3xl
+  }
+
+  h2 {
+    @apply font-calsans text-2xl
+  }
+
+  .panel {
+    @apply bg-neutral-950 rounded-xl p-6 border-[1px] border-neutral-800
   }
 }
