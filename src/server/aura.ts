@@ -1,4 +1,3 @@
-'use server'
 
 import { imageValues } from "@/consts/aura-values";
 import axios from "axios";
@@ -71,7 +70,7 @@ export async function calculateAura(username: string, avatar_url: string) {
 
     const updatedAura = currentUser.aura - (currentUser.aura_base - aura)
 
-    console.log(aura, updatedAura, imageValueArray)
+    console.log(aura)
 
     await upsertUser({ username: username, name_values: nameValueArray, image_values: imageValueArray, aura_base: aura, aura: updatedAura })
 
