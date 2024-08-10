@@ -7,7 +7,7 @@ import ProfilePanel from "./profile-panel";
 import Link from "next/link";
 
 export default function Home() {
-  return (
+  return ( 
     <SessionProvider>
       <div className="-z-10 text-sm text-neutral-400 fixed flex items-end h-screen p-8" >
         Like this project on&nbsp;<Link href="https://github.com/rinzexe/aura-wizard">github</Link>&nbsp;so that I can get hired
