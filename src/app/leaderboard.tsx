@@ -44,8 +44,8 @@ export default function LeaderBoard() {
                         <th className="">Aura</th>
                         <th>    </th>
                     </tr>
-                    {users.map((user: any) => (
-                        <tr className="*:align-middle" key={user.id}>
+                    {users.map((user: any, id: number) => (
+                        <tr className="*:align-middle" key={id}>
                             <td>
                                 <Image className="rounded-full" src={user.avatar_url} alt="" width={50} height={50} />
                             </td>

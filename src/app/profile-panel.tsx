@@ -102,11 +102,11 @@ function LoggedInPanel({ userData, session }: any) {
                                     {"Image rating"}
                                 </h3>
                                 <div className="inline-block gap-4">
-                                    {userData.userData.image_values ? userData.userData.image_values.map((value: any) => (
-                                        <p className="text-sm">
+                                    {userData.userData.image_values ? userData.userData.image_values.map((value: any, id: number) => (
+                                        <p key={id} className="text-sm">
                                             {"• " + value.label + " " + (value.value > 0 ? "+" + value.value : value.value)}
                                         </p>
-                                    )): <p>{"No image buffs/debuffs :("}</p>}
+                                    )) : <p>{"No image buffs/debuffs :("}</p>}
                                 </div>
                             </div>
                             <div>
@@ -114,8 +114,8 @@ function LoggedInPanel({ userData, session }: any) {
                                     {"Name rating"}
                                 </h3>
                                 <div className="inline-block gap-4">
-                                    {userData.userData.name_values ? userData.userData.name_values.map((value: any) => (
-                                        <p className="text-sm">
+                                    {userData.userData.name_values ? userData.userData.name_values.map((value: any, id: number) => (
+                                        <p key={id} className="text-sm">
                                             {"• " + value.label + " " + (value.value > 0 ? "+" + value.value : value.value)}
                                         </p>
                                     )) : <p>{"No name buffs/debuffs :("}</p>}
@@ -134,9 +134,76 @@ function LoggedInPanel({ userData, session }: any) {
 
 function LoginPanel() {
     return (
-        <div>
-            Not signed in <br />
-            <Button onClick={() => signIn('discord')}>Sign in</Button>
+        <div className="relative h-full w-full">
+            <div className="absolute bottom-0 left-0 flex rounded-xl bg-black/75 justify-center flex-col gap-4 backdrop-blur-sm items-center w-full h-full z-20">
+                <h1>
+                    SIGN IN TO SEE YOUR PROFILE
+                </h1>
+                <Button onClick={() => signIn('discord')}>Sign in</Button>
+            </div>
+            <div className="flex flex-col gap-6 relative p-4">
+
+                <>
+                    <div className="flex flex-row items-center gap-4 w-fit">
+                        <Image
+                            src={"https://cdn.discordapp.com/avatars/298806030878375936/1f8c3386f0391e1f8d11c710a924813a.png"}
+                            alt=""
+                            width={80}
+                            height={80}
+                            className="rounded-full"
+                        />
+                        <h2>
+                            rinzexe
+                        </h2>
+                    </div>
+                    <div>
+                        <p>{"Aura: " + 2167354}</p>
+                        <p>{"Aura recieved: " + 25727}</p>
+                        <p>{"Aura given: " + 24582}</p>
+                    </div>
+                    <div>
+                        <h2>
+                            {"Base aura: " + 4824824}
+                        </h2>
+                        <div className="grid grid-cols-2">
+                            <div>
+                                <h3>
+                                    {"Image rating"}
+                                </h3>
+                                <div className="inline-block gap-4">
+                                    <p className="text-sm">
+                                        {"• You fuck some ass +100"}
+                                    </p>
+                                    <p className="text-sm">
+                                        {"• EZ4ENCE -100"}
+                                    </p>
+                                    <p className="text-sm">
+                                        {"• It's over bros +100"}
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <h3>
+                                    {"Name rating"}
+                                </h3>
+                                <div className="inline-block gap-4">
+                                    <p className="text-sm">
+                                        {"• You fuck some ass +100"}
+                                    </p>
+                                    <p className="text-sm">
+                                        {"• EZ4ENCE -100"}
+                                    </p>
+                                    <p className="text-sm">
+                                        {"• It's over bros +100"}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
+
+                <Button>Sign out</Button>
+            </div >
         </div>
     )
 }
