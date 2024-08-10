@@ -1,3 +1,4 @@
+'use server'
 
 import { imageValues } from "@/consts/aura-values";
 import axios from "axios";
