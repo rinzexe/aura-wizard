@@ -62,7 +62,7 @@ export const imageValues: Value[] = [
     },
     {
         name: 'wall',
-        value: 999999,
+        value: 99,
         label: 'Why is your pfp a wall?'
     },
     {
