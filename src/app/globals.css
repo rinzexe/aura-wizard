@@ -41,4 +41,8 @@ body {
   .panel {
     @apply bg-neutral-950 rounded-xl p-6 border-[1px] border-neutral-800
   }
+
+  a{
+    @apply underline text-blue-500
+  }
 }

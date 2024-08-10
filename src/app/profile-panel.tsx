@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Button from "./components/button";
 import { get } from "http";
 import { getDiscordConnections, getDiscordGuilds, getDiscordUser } from "./actions";
-import { getUser } from "@/server/supabase";
+import { getUser, upsertUser } from "@/server/supabase";
 
 export default function ProfilePanel() {
     const { data: session } = useSession()
@@ -25,6 +25,8 @@ export default function ProfilePanel() {
             });
 
             const user: any = await getUser(profileData.data.username)
+
+            upsertUser({ username: profileData.data.username, avatar_url: session?.user.image as string })
 
             data.userData = user;
 
@@ -47,7 +49,7 @@ export default function ProfilePanel() {
 
 }
 
-function LoggedInPanel({userData, session}: any) {
+function LoggedInPanel({ userData, session }: any) {
     return (
         <div className="flex flex-col gap-6">
 
