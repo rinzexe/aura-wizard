@@ -3,17 +3,22 @@
 import axios from "axios";
 import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "./components/button";
 import { get } from "http";
 import { getDiscordConnections, getDiscordGuilds, getDiscordUser } from "./actions";
-import { getUser, upsertUser } from "@/server/supabase";
+import { getSupabase, getUser, supabase, upsertUser } from "@/server/supabase";
+import { calculateAura } from "@/server/aura";
+import Tag from "./components/tag";
 
 export default function ProfilePanel() {
     const { data: session } = useSession()
     const [userData, setUserData] = useState<any>(null);
 
+    const [rerender, setRerender] = useState(false)
+
     useEffect(() => {
+        var channel: any = null
         async function getData() {
             const data: any = {}
 
@@ -24,20 +29,34 @@ export default function ProfilePanel() {
                 validateStatus: () => true
             });
 
-            const user: any = await getUser(profileData.data.username)
+            const supabase = await getSupabase()
+
+            const oldAvatar = session?.user.image
 
             upsertUser({ username: profileData.data.username, avatar_url: session?.user.image as string })
+
+            const user: any = await getUser(profileData.data.username)
+
+
+            if (oldAvatar != session?.user.image) {
+                calculateAura(profileData.data.username, session?.user.image as string)
+                setRerender(!rerender)
+            }
 
             data.userData = user;
 
             data.discordProfileData = profileData.data;
 
             setUserData(data)
+
+            const channel = supabase.channel('profile updates').on('postgres_changes', { event: '*', schema: 'public', table: 'users' }, (payload: any) => { console.log(payload); supabase.removeChannel(channel); getData() }).subscribe()
         }
 
         if (session) {
             getData()
         }
+
+        return () => { channel && supabase && supabase.removeChannel(channel) }
 
     }, [session])
 
@@ -50,6 +69,7 @@ export default function ProfilePanel() {
 }
 
 function LoggedInPanel({ userData, session }: any) {
+
     return (
         <div className="flex flex-col gap-6">
 
@@ -68,20 +88,47 @@ function LoggedInPanel({ userData, session }: any) {
                         </h2>
                     </div>
                     <div>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>Aura:</td>
-                                    <td>{userData.userData.aura}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <p>{"Aura: " + userData.userData.aura}</p>
+                        <p>{"Aura recieved: " + userData.userData.aura_recieved}</p>
+                        <p>{"Aura given: " + userData.userData.aura_given}</p>
+                    </div>
+                    <div>
+                        <h2>
+                            {"Base aura: " + userData.userData.aura_base}
+                        </h2>
+                        <div className="grid grid-cols-2">
+                            <div>
+                                <h3>
+                                    {"Image rating"}
+                                </h3>
+                                <div className="inline-block gap-4">
+                                    {userData.userData.image_values ? userData.userData.image_values.map((value: any) => (
+                                        <p className="text-sm">
+                                            {"• " + value.label + " " + (value.value > 0 ? "+" + value.value : value.value)}
+                                        </p>
+                                    )): <p>{"No image buffs/debuffs :("}</p>}
+                                </div>
+                            </div>
+                            <div>
+                                <h3>
+                                    {"Name rating"}
+                                </h3>
+                                <div className="inline-block gap-4">
+                                    {userData.userData.name_values ? userData.userData.name_values.map((value: any) => (
+                                        <p className="text-sm">
+                                            {"• " + value.label + " " + (value.value > 0 ? "+" + value.value : value.value)}
+                                        </p>
+                                    )) : <p>{"No name buffs/debuffs :("}</p>}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </>
-            )}
+            )
+            }
 
             <Button onClick={() => signOut()}>Sign out</Button>
-        </div>
+        </div >
     )
 }
 
