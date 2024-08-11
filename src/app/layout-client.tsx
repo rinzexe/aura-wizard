@@ -20,6 +20,7 @@ export default function LayoutClient({ children }: any) {
                     <div className="flex flex-row gap-4">
                         <Link href="/about"><p className="!no-underline text-white">About</p></Link>
                         <Link href="/leaderboard"><p className="!no-underline text-white">Leaderboard</p></Link>
+                        <Link href="/badges"><p className="!no-underline text-white">Badges</p></Link>
                     </div>
                 </div>
                 {children}
