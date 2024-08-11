@@ -21,10 +21,10 @@ export default function LeaderBoard() {
         getData()
     }, [])
 
-    return(
-        <div className="flex flex-col max-w-96 items-center *:text-center">
-        <h1 className="mb-4">Leaderboard</h1>
-        <table className="border-separate border-spacing-x-4 border-spacing-y-2 ">
+    return (
+        <div className="flex panel flex-col max-w-96 items-center *:text-center">
+            <h1 className="mb-4">Leaderboard</h1>
+            <table className="border-separate border-spacing-x-4 border-spacing-y-2 ">
                 <tbody>
                     <tr>
                         <th></th>
@@ -45,6 +45,6 @@ export default function LeaderBoard() {
                     ))}
                 </tbody>
             </table>
-    </div>
+        </div>
     )
 }

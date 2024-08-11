@@ -2,9 +2,9 @@ import Badge from "../_components/badge"
 
 export default function Badges() {
     return (
-        <div className="flex flex-col max-w-96 items-center *:text-center">
+        <div className="flex flex-col panel max-w-[30rem] items-center *:text-center">
             <h1 className="mb-4">Badges</h1>
-            <h2>rinz</h2>
+            <h2>rinz</h2> 
             <p>
                 {"me :3"}
             </p>
