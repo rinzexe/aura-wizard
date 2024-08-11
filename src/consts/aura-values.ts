@@ -5,6 +5,35 @@ interface Value {
 }
 
 export const imageValues: Value[] = [
+    //potential additions.
+    {
+        name: 'nature',
+        value: 50,
+        label: 'Based Nature Enjoyer'
+    },
+    {
+        name: 'beautiful',
+        value: 75,
+        label: 'Pure beauty'
+    },
+    {
+        name: 'asian',
+        value: 25,
+        label: 'Yellow Fever Buff'
+    },
+    {
+        name: 'teeth',
+        value: -50,
+        label: 'Creepy Debuff'
+    },
+    {
+        name: 'swag',
+        value: 137,
+        label: 'Swag'
+    },
+    
+    
+    //---//
     {
         name: 'abstract',
         value: 80,
