@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import LocalFont from "next/font/local";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
+import LayoutClient from "./layout-client";
 
 const poppins = Poppins({ weight: "300", variable: '--font-poppins', subsets: ["latin"] })
 
@@ -24,7 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={calSans.variable + " " + poppins.variable + " " + poppins.className + " bg-black text-white"}>
+        <LayoutClient>
           {children}
+        </LayoutClient>
       </body>
     </html>
   );

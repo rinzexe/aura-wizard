@@ -3,21 +3,16 @@
 import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import LeaderBoard from "./leaderboard";
-import ProfilePanel from "./profile-panel";
+import ProfilePanel from "./_components/profile-panel";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
-  return ( 
-    <SessionProvider>
-      <div className=" text-sm text-neutral-400 fixed flex items-end h-screen p-8" >
-        Like this project on&nbsp;<Link href="https://github.com/rinzexe/aura-wizard">github</Link>&nbsp;so that I can get hired
-      </div>
-      <div className="w-screen z-10 min-h-dvh h-full gap-12 flex flex-col justify-center items-center">
-          <div className="grid p-4 lg:grid-rows-1  gap-12 grid-rows-2 lg:grid-cols-2 w-full max-w-[80rem]">
-            <LeaderBoard />
-            <ProfilePanel />
-          </div>
-      </div>
-    </SessionProvider>
+  const { data: session, status } = useSession()
+  return (
+    <div className="grid p-4 lg:grid-rows-1  gap-12 grid-rows-2 lg:grid-cols-2 w-full max-w-[80rem]">
+      <LeaderBoard />
+      <ProfilePanel isOwner={true} sessionData={session} sessionStatus={status} />
+    </div>
   )
 }

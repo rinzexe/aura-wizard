@@ -5,7 +5,6 @@ import axios from "axios";
 import { getUser, upsertUser } from "./supabase";
 
 export async function calculateAura(username: string, avatar_url: string) {
-    console.log(process.env.XIMILAR_KEY)
     const response = await axios.post(
         'https://api.ximilar.com/photo/tags/v2/tags',
         {
@@ -70,8 +69,6 @@ export async function calculateAura(username: string, avatar_url: string) {
     const currentUser = await getUser(username)
 
     const updatedAura = currentUser.aura - (currentUser.aura_base - aura)
-
-    console.log(aura)
 
     await upsertUser({ username: username, name_values: nameValueArray, image_values: imageValueArray, aura_base: aura, aura: updatedAura })
 

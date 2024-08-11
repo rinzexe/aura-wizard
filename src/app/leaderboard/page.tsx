@@ -1,11 +1,10 @@
 'use client'
 
-import { getLeaderBoardData, giveAura } from "@/server/supabase";
+import { getLeaderBoardData } from "@/server/supabase";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import Button from "./_components/button";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function LeaderBoard() {
     const [users, setUsers] = useState([]);
@@ -14,7 +13,7 @@ export default function LeaderBoard() {
     useEffect(() => {
         var channel: any = null
         async function getData() {
-            const res: any = await getLeaderBoardData(5)
+            const res: any = await getLeaderBoardData(999)
 
             setUsers(res)
         }
@@ -22,12 +21,10 @@ export default function LeaderBoard() {
         getData()
     }, [])
 
-    return (
-        <div className="panel h-full overflow-scroll relative">
-            <div className="flex flex-row justify-between items-center">
-                <h1 className="mb-6">TOP 5 AURABENDERS</h1>
-            </div>
-            <table className="border-separate border-spacing-x-4 border-spacing-y-2 ">
+    return(
+        <div className="flex flex-col max-w-96 items-center *:text-center">
+        <h1 className="mb-4">LeaderBoard</h1>
+        <table className="border-separate border-spacing-x-4 border-spacing-y-2 ">
                 <tbody>
                     <tr>
                         <th></th>
@@ -44,15 +41,10 @@ export default function LeaderBoard() {
                                 <td className="font-bold text-white select-none hover:cursor-pointer">{user.username}</td>
                             </Link>
                             <td>{user.aura}</td>
-                            {/*                           {user.username != session?.user.name && (
-                                <td>
-                                    <Button onClick={() => { giveAura(session?.user.name as string, user.username, 1) }}>Give aura</Button>
-                                </td>
-                            )} */}
                         </tr>
                     ))}
                 </tbody>
             </table>
-        </div>
+    </div>
     )
 }

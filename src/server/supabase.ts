@@ -1,8 +1,8 @@
-
+'use server'
 
 import { createClient } from "@supabase/supabase-js";
 
-export const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.NEXT_PUBLIC_SUPABASE_KEY as string);
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.SUPABASE_KEY as string);
 
 export async function getUser(username: string) {
     var res: any = await supabase.from('users').select('*').eq('username', username)
@@ -25,8 +25,8 @@ export async function upsertUser({ username, aura, avatar_url, aura_base, name_v
 }
 
 
-export async function getLeaderBoardData() {
-    const res = await supabase.from('users').select('*').order('aura', { ascending: false }).limit(10)
+export async function getLeaderBoardData(limit: number) {
+    const res = await supabase.from('users').select('*').order('aura', { ascending: false }).limit(limit)
 
     return res.data
 }
@@ -34,9 +34,6 @@ export async function getLeaderBoardData() {
 export async function giveAura(username: string, to: string, amount: number) {
     const user = await getUser(username)
     const toUser = await getUser(to)
-
-    console.log(amount)
-    console.log(toUser)
 
     if (user && toUser) {
         const res = await supabase.from('users').upsert([

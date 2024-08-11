@@ -17,11 +17,15 @@
     @apply font-calsans text-2xl
   }
 
+  h3 {
+    @apply font-bold text-xl
+  }
+
   .panel {
     @apply bg-neutral-950 rounded-xl p-6 border-[1px] border-neutral-800
   }
 
   a{
-    @apply underline text-blue-500
+    @apply text-blue-500
   }
 }
