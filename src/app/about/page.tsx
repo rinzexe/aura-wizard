@@ -4,7 +4,7 @@ return(
         <h1 className="mb-4">About</h1>
         <h3>What is Aura Wizard dot com?</h3>
         <p>
-            {"Aura Wizard calculates your aura based on your Discord profile, among other things. You can then compare your aura with your friends, and mog them... or get mogged"}
+            {"Aura Wizard calculates your aura based on your Discord profile, among other things. You can then compare your aura with your friends, and mog them... or get"}
         </p>
         <h3 className="mt-2">How is aura calculated?</h3>
         <p>

@@ -10,7 +10,7 @@ import { useState } from "react";
 export default function Home() {
   const { data: session, status } = useSession()
   return (
-    <div className="grid p-4 lg:grid-rows-1  gap-12 grid-rows-2 lg:grid-cols-2 w-full max-w-[80rem]">
+    <div className="grid lg:grid-rows-1  gap-12 grid-rows-2 lg:grid-cols-2 w-full max-w-[80rem]">
       <LeaderBoard />
       <ProfilePanel isOwner={true} sessionData={session} sessionStatus={status} />
     </div>

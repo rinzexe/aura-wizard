@@ -10,7 +10,7 @@ import { useState } from "react";
 export default function LayoutClient({ children }: any) {
     return (
         <SessionProvider>
-            <div className="w-screen z-10 min-h-dvh h-full gap-12 flex flex-col justify-center items-center">
+            <div className="w-screen p-4 z-10 min-h-dvh h-full gap-12 flex flex-col justify-center items-center">
                 <div className="flex flex-col items-center gap-4">
                     <Link href="/">
                         <h1 className="md:mt-0 text-white mt-24 select-none hover:cursor-pointer">
