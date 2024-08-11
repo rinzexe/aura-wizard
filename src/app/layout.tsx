@@ -14,7 +14,7 @@ const calSans = LocalFont({
 
 export const metadata: Metadata = {
   title: "Aura",
-  description: "Get that bag",
+  description: "Get that aura",
 };
 
 export default function RootLayout({

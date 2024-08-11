@@ -18,7 +18,6 @@ export async function upsertUser({ username, aura, avatar_url, aura_base, name_v
     avatar_url != undefined && (object['avatar_url'] = avatar_url)
     image_values != undefined && (object['image_values'] = image_values)
     name_values != undefined && (object['name_values'] = name_values)
-    console.log(object)
     const res = await supabase.from('users').upsert([object])
 
     return res
@@ -53,6 +52,24 @@ export async function giveAura(username: string, to: string, amount: number) {
     }
 }
 
+export async function getBadges(username: string) {
+    const badges = await supabase.from('badges').select('*').eq('owner', username)
+    return badges.data || []
+}
+
+export async function addBadge(username: string, badgeid: number) {
+    const currentBadges = await getBadges(username)
+    for (var i = 0; i < currentBadges.length; i++) {
+        if (currentBadges[i].id == badgeid) {
+            return
+        }
+    }
+    console.log(currentBadges)
+    const res = await supabase.from('badges').upsert([{ owner: username, id: badgeid }])
+
+    return res
+}
+
 export async function channel(update: any) {
     const channel = supabase.channel('realtime updates').on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'users' }, (payload: any) => { update(false) }).subscribe()
 
@@ -61,4 +78,21 @@ export async function channel(update: any) {
 
 export async function getSupabase() {
     return supabase
+}
+
+export async function updateBadges(user: any) {
+    const leaderboardData: any = await getLeaderBoardData(51)
+
+    if (leaderboardData[0].username == user.username) {
+        await addBadge(user.username, 1)
+    }
+    for (var i = 0; i < 10; i++) {
+        if (leaderboardData[i].username == user.username) {
+            await addBadge(user.username, 2)
+            break
+        }
+    }
+    if (leaderboardData.length < 50) {
+        await addBadge(user.username, 3)
+    }
 }

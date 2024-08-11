@@ -23,7 +23,7 @@ export default function LeaderBoard() {
     }, [])
 
     return (
-        <div className="panel h-full overflow-scroll relative">
+        <div className="panel h-full relative">
             <div className="flex flex-row justify-between items-center">
                 <h1 className="mb-6">TOP 5 AURABENDERS</h1>
             </div>

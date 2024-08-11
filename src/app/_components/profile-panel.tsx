@@ -5,11 +5,9 @@ import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Button from "./button";
-import { get } from "http";
-import { getDiscordConnections, getDiscordGuilds, getDiscordUser } from "../actions";
-import { getSupabase, getUser, upsertUser } from "@/server/supabase";
+import { getBadges, getSupabase, getUser, updateBadges, upsertUser } from "@/server/supabase";
 import { calculateAura } from "@/server/aura";
-import Tag from "./tag";
+import Badge from "./badge";
 
 export default function ProfilePanel({ sessionData, sessionStatus, isOwner, username }: any) {
     function DisplayPanel() {
@@ -30,10 +28,16 @@ function GuestPanel({ username }: any) {
 
     useEffect(() => {
         async function getData() {
+            var data: any = {}
 
             const user: any = await getUser(username)
+            const badgeRes = await updateBadges(user)
+            const badges: any = await getBadges(username)
 
-            setUserData(user)
+            data = user;
+            data.badges = badges
+
+            setUserData(data)
         }
 
         getData()
@@ -87,7 +91,12 @@ function OwnerPanel({ sessionData, sessionStatus }: any) {
 
             const user: any = await getUser(profileData.data.username)
 
+            const badgeRes = await updateBadges(user)
+
+            const badges: any = await getBadges(profileData.data.username)
+
             data = user;
+            data.badges = badges
 
             setUserData(data)
         }
@@ -126,20 +135,27 @@ function Panel({ userData, isOwner }: any) {
     return (
         <div className="flex flex-col gap-6">
 
-            <div className="flex flex-row items-center gap-4 w-fit">
-                <Image
-                    src={userData.avatar_url as any}
-                    alt=""
-                    width={80}
-                    height={80}
-                    className="rounded-full"
-                />
-                <h2>
-                    {userData.username}
-                </h2>
+            <div className="flex flex-row justify-between items-center gap-4">
+                <div className="flex flex-row items-center gap-4">
+                    <Image
+                        src={userData.avatar_url as any}
+                        alt=""
+                        width={80}
+                        height={80}
+                        className="rounded-full"
+                    />
+                    <h2 style={{ overflowWrap: "anywhere" }} className="text break-all text-wrap">
+                        {userData.username}
+                    </h2>
+                </div>
+                <div>
+                    <h2>{"Total aura: " + userData.aura}</h2>
+                </div>
             </div>
-            <div>
-                <p>{"Total aura: " + userData.aura}</p>
+            <div className="w-full">
+                {userData.badges?.map((badge: any, id: number) => (
+                    <Badge key={id} badgeid={badge.id} badgeData={badge} />
+                ))}
             </div>
             <div>
                 <h2>
