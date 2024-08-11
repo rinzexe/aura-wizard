@@ -90,4 +90,9 @@ export const imageValues: Value[] = [
         value: -50,
         label: 'Side character'
     },
+    {
+        name: 'cat',
+        value: 73,
+        label: 'Cat bonus'
+    },
 ]
