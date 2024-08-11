@@ -50,6 +50,11 @@ export async function calculateAura(username: string, avatar_url: string) {
         aura += 69
     }
 
+    if (username.indexOf('f') > -1) {
+        nameValueArray.push({ value: -43, label: 'Had the letter f' })
+        aura += 69
+    }
+
     if (username.indexOf('.') > -1) {
         nameValueArray.push({ value: 18, label: 'Dot swag' })
         aura += 18

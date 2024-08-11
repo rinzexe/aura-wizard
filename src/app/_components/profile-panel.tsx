@@ -149,7 +149,7 @@ function Panel({ userData, isOwner }: any) {
                     </h2>
                 </div>
                 <div>
-                    <h2>{"Total aura: " + userData.aura}</h2>
+                    <h2>{"Aura: " + userData.aura}</h2>
                 </div>
             </div>
             <div className="w-full">

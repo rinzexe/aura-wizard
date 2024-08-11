@@ -40,6 +40,13 @@ export const badges: Badge[] = [
         color: "#8700e0",
         rarity: 2
     },
+    {
+        name: "Aura university",
+        description: "Awarded to users that joined the discord server",
+        icon: "https://cdn.discordapp.com/attachments/889688352469733141/889688381442383390/aura_bender.png",
+        color: "#2b2b2b",
+        rarity: 1
+    },
 ]
 
 export const badgeRarities: Rarity[] = [
